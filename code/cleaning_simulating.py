@@ -40,3 +40,7 @@ sim10 = pd.DataFrame(sim10, columns = ['Column_A', 'Column_B', 'Column_C', 'Colu
 pd.DataFrame.to_csv(sim10, path_or_buf='/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_ndim.csv', index = True)
 sim10_sparse = pd.DataFrame(sim10, columns = ['Column_A', 'Column_B', 'Column_C', 'Column_D', 'Column_E', 'Column_F', 'Column_G', 'Column_H', 'Column_I', 'Column_J'])
 pd.DataFrame.to_csv(sim10_sparse, path_or_buf='/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_ndim_sparse.csv', index = True)
+
+# Clean WVS
+wvs.dropna(axis = 0, how = 'any', inplace = True)
+pd.DataFrame.to_csv(wvs, path_or_buf='/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/wvs_complete_obs_only.csv', index = True)
