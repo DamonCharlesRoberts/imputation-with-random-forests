@@ -16,8 +16,6 @@ import seaborn as sns #For heatmap
 from utils import *
 
 #import random as rand # Dropping random values in array
-	#* Load world values data
-wvs = pd.read_csv('/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/wvs_original.csv')
 	#* Define Ampute Function called produce_NA
 def produce_NA(X, p_miss, mecha="MCAR", opt=None, p_obs=None, q=None):
     """
@@ -66,6 +64,7 @@ def produce_NA(X, p_miss, mecha="MCAR", opt=None, p_obs=None, q=None):
     X_nas[mask.bool()] = np.nan
     
     return {'X_init': X.double(), 'X_incomp': X_nas.double(), 'mask': mask}
+
 # Generate simulated data
 	#* Set Seed
 np.random.seed(601)
@@ -81,8 +80,10 @@ sim1_mcar = sim1_sparse_mcar['X_incomp']
 sim1_mcar_r = sim1_sparse_mcar['mask']
 	#* MAR
 sim1_sparse_mar = produce_NA(sim1, p_miss=0.4, mecha="MAR", p_obs =0.5)
+sim1_mar = sim1_sparse_mar['X_incomp']
 	#* MNAR
 sim1_sparse_mnar = produce_NA(sim1, p_miss=0.4, mecha="MNAR", opt="logistic", p_obs=0.5)
+sim1_mnar = sim1_sparse_mnar['X_incomp']
 #sim1_sparse_i = rand.randint(0, len(sim1))
 #sim1_sparse_set = sim1[sim1_sparse_i]
 #sim1_sparse = np.delete(sim1, np.arange(sim1_sparse_i, sim1_sparse_i+len(sim1_sparse_set),1)).reshape([-1, len(sim1_sparse_set)])
@@ -99,23 +100,28 @@ sim10 = np.random.multivariate_normal(mean10, cov10, 1000) #Use mean and covaria
 #sim10_sparse = np.delete(sim10, np.arange(sim10_sparse_i, sim10_sparse_i+len(sim10_sparse_set),1)).reshape([-1, len(sim10_sparse_set)])
 	#* MCAR
 sim10_sparse_mcar = produce_NA(sim10, p_miss = 0.4, mecha = "MCAR")
+sim10_mcar = sim10_sparse_mcar['X_incomp']
 	#* MAR
 sim10_sparse_mar = produce_NA(sim10, p_miss = 0.4, mecha = "MAR", p_obs = 0.5)
+sim10_mar = sim10_sparse_mar['X_incomp']
 	#* MNAR
 sim10_sparse_mnar = produce_NA(sim10, p_miss = 0.4, mecha = "MNAR", opt = "logistic", p_obs=0.5)
+sim10_mnar = sim10_sparse_mnar['X_incomp']
 # Save Simulated and Cleaned data
 	#* Simulated
-#sim1df = pd.DataFrame(sim1, columns = ['Column_A', 'Column_B'])
+sim1df = pd.DataFrame(sim1, columns = ['Column_A', 'Column_B'])
 pd.DataFrame.to_csv(sim1df, path_or_buf='/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_binary.csv', index = True)
-#im1_sparse = pd.DataFrame(sim1_sparse, columns = ['Column_A', 'Column_B'])
-pd.DataFrame.to_csv(sim1_sparse, path_or_buf='/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_binary_sparse.csv', index = True)
-#sim10 = pd.DataFrame(sim10, columns = ['Column_A', 'Column_B', 'Column_C', 'Column_D', 'Column_E', 'Column_F', 'Column_G', 'Column_H', 'Column_I', 'Column_J'])
+sim1_mar = pd.DataFrame(sim1_mar, columns = ['Column_A', 'Column_B'])
+pd.DataFrame.to_csv(sim1_mar, path_or_buf='/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_binary_sparse_mar.csv', index = True)
+sim1_mcar = pd.DataFrame(sim1_mcar, columns = ['Column_A', 'Column_B'])
+pd.DataFrame.to_csv(sim1_mcar, path_or_buf='/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_binary_sparse_mcar.csv', index = True)
+sim1_mnar = pd.DataFrame(sim1_mnar, columns = ['Column_A', 'Column_B'])
+pd.DataFrame.to_csv(sim1_mnar, path_or_buf='/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_binary_sparse_mnar.csv', index = True)
+sim10 = pd.DataFrame(sim10, columns = ['Column_A', 'Column_B', 'Column_C', 'Column_D', 'Column_E', 'Column_F', 'Column_G', 'Column_H', 'Column_I', 'Column_J'])
 pd.DataFrame.to_csv(sim10, path_or_buf='/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_ndim.csv', index = True)
-#sim10_sparse = pd.DataFrame(sim10, columns = ['Column_A', 'Column_B', 'Column_C', 'Column_D', 'Column_E', 'Column_F', 'Column_G', 'Column_H', 'Column_I', 'Column_J'])
-pd.DataFrame.to_csv(sim10_sparse, path_or_buf='/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_ndim_sparse.csv', index = True)
-
-# Clean WVS
-wvs.dropna(axis = 0, how = 'any', inplace = True)
-pd.DataFrame.to_csv(wvs, path_or_buf='/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/wvs_complete_obs_only.csv', index = True)
-wvs_sparse = wvs.sample(frac = 0.2)
-pd.DataFrame.to_csv(wvs_sparse, path_or_buf='/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/wvs_sparse.csv', index = True)
+sim10_mcar = pd.DataFrame(sim10_mcar, columns = ['Column_A', 'Column_B', 'Column_C', 'Column_D', 'Column_E', 'Column_F', 'Column_G', 'Column_H', 'Column_I', 'Column_J'])
+pd.DataFrame.to_csv(sim10_mcar, path_or_buf='/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_ndim_sparse_mcar.csv', index = True)
+sim10_mar = pd.DataFrame(sim10_mar, columns = ['Column_A', 'Column_B', 'Column_C', 'Column_D', 'Column_E', 'Column_F', 'Column_G', 'Column_H', 'Column_I', 'Column_J'])
+pd.DataFrame.to_csv(sim10_mar, path_or_buf='/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_ndim_sparse_mar.csv', index = True)
+sim10_mnar = pd.DataFrame(sim10_mnar, columns = ['Column_A', 'Column_B', 'Column_C', 'Column_D', 'Column_E', 'Column_F', 'Column_G', 'Column_H', 'Column_I', 'Column_J'])
+pd.DataFrame.to_csv(sim10_mnar, path_or_buf='/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_ndim_sparse_mnar.csv', index = True)
