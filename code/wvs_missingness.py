@@ -40,7 +40,7 @@ class wvs_missingness:
                 print('Invalid argument')
             wvs_i = wvs_i['X_incomp']
             wvs_i = pd.DataFrame(wvs_i.numpy(), columns = wvs_colnames)
-            pd.DataFrame.to_csv(wvs_i, path_or_buf = '/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/wvs_sparse_' + types + '.csv', index = True) 
+            pd.DataFrame.to_csv(wvs_i, path_or_buf = '/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/wvs_sparse_' + types.lower() + '.csv', index = True) 
 wvs_missingness(types = 'MCAR')
 wvs_missingness(types = 'MAR')
 wvs_missingness(types = 'MNAR')
@@ -78,7 +78,7 @@ class wvs_low_k_missingness:
                 print('Invalid argument')
             wvs_low_k_i = wvs_low_k_i['X_incomp']
             wvs_low_k_i = pd.DataFrame(wvs_low_k_i.numpy(), columns = wvs_low_k_colnames)
-            pd.DataFrame.to_csv(wvs_low_k_i, path_or_buf = '/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/wvs_low_k_' + types + '.csv', index = True) 
+            pd.DataFrame.to_csv(wvs_low_k_i, path_or_buf = '/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/wvs_low_k_' + types.lower() + '.csv', index = True) 
 wvs_low_k_missingness(types = 'MCAR')
 wvs_low_k_missingness(types = 'MAR')
 wvs_low_k_missingness(types = 'MNAR')
