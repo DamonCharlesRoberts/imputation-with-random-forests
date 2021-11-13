@@ -12,6 +12,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from plotnine import ggplot, aes, geom_density
 import re
+from tabulate import tabulate
 	#* Plot Style 
 sns.set(style = 'whitegrid')
 # Simulated Data 
@@ -30,7 +31,7 @@ sim_10_mar = pd.read_csv(filepath_or_buffer = '/Users/damonroberts/Dropbox/curre
 #sim_3_mnar = pd.read_csv(filepath_or_buffer = '/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_three_MNAR.csv')
 #sim_10_mnar = pd.read_csv(filepath_or_buffer = '/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_ten_MNAR.csv')
 
-# 3 variable
+	#* 3 variable
 
 sim_3_mar = sim_3_mar.rename(columns = lambda x:re.sub('[^A-Za-z0-9_]+', '', x))
 
@@ -90,7 +91,9 @@ sim_3_kernel.plot_correlations(wspace = 0.5, hspace = 1.1)
 plt.savefig('/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/figures/sim_3_plot_correlations.jpeg')
 sim_3_kernel.plot_mean_convergence(wspace = 0.5, hspace = 1.1)
 plt.savefig('/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/figures/sim_3_plot_mean_convergence.jpeg')
-# 10 Variable
+
+
+	#* 10 Variable
 sim_10_mar = sim_10_mar.rename(columns = lambda x:re.sub('[^A-Za-z0-9_]+', '', x))
 
 sim_10_kernel = mf.ImputationKernel(
@@ -149,3 +152,27 @@ sim_10_kernel.plot_correlations(wspace = 0.5, hspace = 1.1)
 plt.savefig('/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/figures/sim_10_plot_correlations.jpeg')
 sim_10_kernel.plot_mean_convergence(wspace = 0.5, hspace = 1.1)
 plt.savefig('/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/figures/sim_10_plot_mean_convergence.jpeg')
+
+	#* Performance
+accuracy_3_a = sim_3_comp['ColumnA'] - sim_3_mice_comp_10['ColumnA']
+accuracy_3_a = accuracy_3_a.mean()
+accuracy_3_b = sim_3_comp['ColumnB'] - sim_3_mice_comp_10['ColumnB']
+accuracy_3_b = accuracy_3_b.mean()
+accuracy_3 = [('Column A', accuracy_3_a), ('Column B', accuracy_3_b)]
+headers = ['Variable', 'Mean Difference']
+print(tabulate(accuracy_3, headers, tablefmt = 'latex', floatfmt = '.3f'))
+accuracy_10_b = sim_10_comp['ColumnB'] - sim_10_mice_comp_10['ColumnB']
+accuracy_10_b = accuracy_10_b.mean()
+accuracy_10_c = sim_10_comp['ColumnC'] - sim_10_mice_comp_10['ColumnC']
+accuracy_10_c = accuracy_10_c.mean()
+accuracy_10_f = sim_10_comp['ColumnF'] - sim_10_mice_comp_10['ColumnF']
+accuracy_10_f = accuracy_10_f.mean()
+accuracy_10_g = sim_10_comp['ColumnG'] - sim_10_mice_comp_10['ColumnG']
+accuracy_10_g = accuracy_10_g.mean()
+accuracy_10_h = sim_10_comp['ColumnH'] - sim_10_mice_comp_10['ColumnH']
+accuracy_10_h = accuracy_10_h.mean()
+accuracy_10_i = sim_10_comp['ColumnI'] - sim_10_mice_comp_10['ColumnI']
+accuracy_10_i = accuracy_10_i.mean()
+accuracy_10 = [('Column B', accuracy_10_b), ('Column C', accuracy_10_c), ('Column F', accuracy_10_f), ('Column G', accuracy_10_g), ('Column H', accuracy_10_h), ('Column I', accuracy_10_i)]
+print(tabulate(accuracy_10, headers, tablefmt = 'latex', floatfmt = '.3f'))
+# World Values Survey
