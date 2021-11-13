@@ -21,7 +21,7 @@ np.random.seed(601)
 mean1 = np.random.random(3) # Randomly generate the means for 2 variables
 cov1 = np.random.random((3,3)) # Randomly generate the covariances for 3 variables
 sim1 = np.random.multivariate_normal(mean1, cov1, 1000) #Use mean and covariates to generate a simulated dataset following a multivariate normal distribution with an N = 1000
-sim1comp = pd.DataFrame(sim1, columns = ['Column_A', 'Column_B', 'Column_C'])
+sim1comp = pd.DataFrame(sim1, columns = ['ColumnA', 'ColumnB', 'ColumnC'])
 pd.DataFrame.to_csv(sim1comp, path_or_buf = '/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_three_complete.csv')
 class sim_missingness:
 	def __init__(sim, types):
@@ -34,7 +34,7 @@ class sim_missingness:
 		else:
 			print('Invalid Argument')
 		sim = sim['X_incomp']
-		sim = pd.DataFrame(sim.numpy(), columns = ['Column_A', 'Column_B', 'Column_C'])
+		sim = pd.DataFrame(sim.numpy(), columns = ['ColumnA', 'ColumnB', 'ColumnC'])
 		pd.DataFrame.to_csv(sim, path_or_buf = '/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_three_' + types + '.csv')
 sim_missingness(types = 'MCAR')
 sim_missingness(types = 'MAR')
@@ -60,7 +60,7 @@ cov10 = np.random.random((10, 10)) # Randomly generate the covariances for 10 va
 #mean10 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 
 #cov10 = [[1,0], [1,0], [1,0], [1,0], [1,0], [1,0], [1,0], [1,0], [1,0], [1,0]]
 sim10 = np.random.multivariate_normal(mean10, cov10, 1000) #Use mean and covariates to generate a simulated dataset following a multivariate normal distribution with an N = 1000
-sim10comp = pd.DataFrame(sim10, columns = ['Column_A', 'Column_B', 'Column_C', 'Column_D', 'Column_E', 'Column_F', 'Column_G', 'Column_H', 'Column_I', 'Column_J'])
+sim10comp = pd.DataFrame(sim10, columns = ['ColumnA', 'ColumnB', 'ColumnC', 'ColumnD', 'ColumnE', 'ColumnF', 'ColumnG', 'ColumnH', 'ColumnI', 'ColumnJ'])
 pd.DataFrame.to_csv(sim10comp, path_or_buf = '/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_ten_complete.csv')
 class sim_missingness:
 	def __init__(sim, types):
@@ -73,11 +73,12 @@ class sim_missingness:
 		else:
 			print('Invalid Argument')
 		sim = sim['X_incomp']
-		sim = pd.DataFrame(sim.numpy(), columns = ['Column_A', 'Column_B', 'Column_C', 'Column_D', 'Column_E', 'Column_F', 'Column_G', 'Column_H', 'Column_I', 'Column_J'])
+		sim = pd.DataFrame(sim.numpy(), columns = ['ColumnA', 'ColumnB', 'ColumnC', 'ColumnD', 'ColumnE', 'ColumnF', 'ColumnG', 'ColumnH', 'ColumnI', 'ColumnJ'])
 		pd.DataFrame.to_csv(sim, path_or_buf = '/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_ten_' + types + '.csv')
 sim_missingness(types = 'MCAR')
 sim_missingness(types = 'MAR')
 sim_missingness(types = 'MNAR')
+
 #sim10 = pd.DataFrame(sim10, columns = ['Column_A', 'Column_B', 'Column_C', 'Column_D', 'Column_E', 'Column_F', 'Column_G', 'Column_H', 'Column_I', 'Column_J']) # Convert this simulated dataset into a dataframe and give it column names
 #sim10_sparse = sim10.sample(frac = 0.2, state = 0601) # randomly drop 20% of rows in the dataframe
 #sim10_sparse_i = rand.randint(0, len(sim10))
