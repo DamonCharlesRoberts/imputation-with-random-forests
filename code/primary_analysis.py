@@ -28,8 +28,7 @@ wvs_comp = pd.read_csv(filepath_or_buffer = 'data/wvs_complete_obs_only.csv')
 	#* Import MAR data
 sim_3_mar = pd.read_csv(filepath_or_buffer = 'data/sim_three_MAR.csv')
 sim_10_mar = pd.read_csv(filepath_or_buffer = 'data/sim_ten_MAR.csv')
-wvs_mar = pd.read_csv(filepath_or_buffer = 'data/wvs_sparse_MAR.csv')
-wvs_low_k_mar = pd.read_csv(filepath_or_buffer = 'data/wvs_low_k_MAR.csv')
+
 	#* Import MCAR data
 #sim_3_mcar = pd.read_csv(filepath_or_buffer = '/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_three_MCAR.csv')
 #sim_10_mcar = pd.read_csv(filepath_or_buffer = '/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/data/sim_ten_MCAR.csv')
@@ -187,93 +186,3 @@ accuracy_10 = [('Column B', accuracy_10_b), ('Column C', accuracy_10_c), ('Colum
 print(tabulate(accuracy_10, headers, tablefmt = 'latex', floatfmt = '.3f'))
 
 print('performance complete')
-# World Values Survey
-	#* Full
-wvs_mar = wvs_mar.rename(columns = lambda x:re.sub('[^A-Za-z0-9_]+', '', x))
-
-wvs_kernel = mf.ImputationKernel(
-                                   wvs_mar,
-                                   datasets=1,
-                                   save_all_iterations=True,
-                                   random_state=601)
-wvs_kernel.mice(iterations = 10, n_estimators = 5)
-
-print('wvs kernel complete')
-
-wvs_mice_comp_1 = wvs_kernel.complete_data(dataset=0, inplace=False)
-wvs_mice_comp_2 = wvs_kernel.complete_data(dataset=1, inplace=False)
-wvs_mice_comp_3 = wvs_kernel.complete_data(dataset=2, inplace=False)
-wvs_mice_comp_4 = wvs_kernel.complete_data(dataset=3, inplace=False)
-wvs_mice_comp_5 = wvs_kernel.complete_data(dataset=4, inplace=False)
-wvs_mice_comp_6 = wvs_kernel.complete_data(dataset=5, inplace=False)
-wvs_mice_comp_7 = wvs_kernel.complete_data(dataset=6, inplace=False)
-wvs_mice_comp_8 = wvs_kernel.complete_data(dataset=7, inplace=False)
-wvs_mice_comp_9 = wvs_kernel.complete_data(dataset=8, inplace=False)
-wvs_mice_comp_10 = wvs_kernel.complete_data(dataset=9, inplace=False)
-
-
-wvs_mar_drop = wvs_mar.dropna(axis = 0, how = 'any', inplace = False)
-wvs_mar_drop = wvs_mar_drop.rename(columns = lambda x:re.sub('[^A-Za-z0-9_]+', '', x))
-
-
-#fig = plt.figure()
-#plt.subplot(1,2,1)
-#sns.kdeplot(data = wvs_comp, x = 'ColumnF', linestyle = 'solid', color = 'red')
-#sns.kdeplot(data = sim_10_mar_drop, x = 'ColumnF', linestyle = 'dashed', color = 'red')
-#sns.kdeplot(data = sim_10_mice_comp_1, x = 'ColumnF', linestyle = 'solid', color = 'black')
-#sns.kdeplot(data = sim_10_mice_comp_2, x = 'ColumnF', linestyle = 'solid', color = 'black')
-#sns.kdeplot(data = sim_10_mice_comp_3, x = 'ColumnF', linestyle = 'solid', color = 'black')
-#sns.kdeplot(data = sim_10_mice_comp_4, x = 'ColumnF', linestyle = 'solid', color = 'black')
-#sns.kdeplot(data = sim_10_mice_comp_5, x = 'ColumnF', linestyle = 'solid', color = 'black')
-#sns.kdeplot(data = sim_10_mice_comp_6, x = 'ColumnF', linestyle = 'solid', color = 'black')
-#sns.kdeplot(data = sim_10_mice_comp_7, x = 'ColumnF', linestyle = 'solid', color = 'black')
-#sns.kdeplot(data = sim_10_mice_comp_8, x = 'ColumnF', linestyle = 'solid', color = 'black')
-#sns.kdeplot(data = sim_10_mice_comp_9, x = 'ColumnF', linestyle = 'solid', color = 'black')
-#sns.kdeplot(data = sim_10_mice_comp_10, x = 'ColumnF', linestyle = 'solid', color = 'black')
-#plt.subplot(1,2,2)
-#sns.kdeplot(data = sim_10_comp, x = 'ColumnC', linestyle = 'solid', color = 'red')
-#sns.kdeplot(data = sim_10_mar_drop, x = 'ColumnC', linestyle = 'dashed', color = 'red')
-#sns.kdeplot(data = sim_10_mice_comp_1, x = 'ColumnC', linestyle = 'solid', color = 'black')
-#sns.kdeplot(data = sim_10_mice_comp_2, x = 'ColumnC', linestyle = 'solid', color = 'black')
-#sns.kdeplot(data = sim_10_mice_comp_3, x = 'ColumnC', linestyle = 'solid', color = 'black')
-#sns.kdeplot(data = sim_10_mice_comp_4, x = 'ColumnC', linestyle = 'solid', color = 'black')
-#sns.kdeplot(data = sim_10_mice_comp_5, x = 'ColumnC', linestyle = 'solid', color = 'black')
-#sns.kdeplot(data = sim_10_mice_comp_6, x = 'ColumnC', linestyle = 'solid', color = 'black')
-#sns.kdeplot(data = sim_10_mice_comp_7, x = 'ColumnC', linestyle = 'solid', color = 'black')
-#sns.kdeplot(data = sim_10_mice_comp_8, x = 'ColumnC', linestyle = 'solid', color = 'black')
-#sns.kdeplot(data = sim_10_mice_comp_9, x = 'ColumnC', linestyle = 'solid', color = 'black')
-#sns.kdeplot(data = sim_10_mice_comp_10, x = 'ColumnC', linestyle = 'solid', color = 'black')
-#fig.text(0, 0.1, 'Data Source: 10-Variable Simulated Data.\nSolid Red is the complete data.\nDashed Red is MAR data.\nLight grey to black represents first to last iteration.')
-#fig.subplots_adjust(bottom = 0.35)
-#plt.savefig('/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/figures/sim_10_plot_imputed_dists.jpeg')
-
-wvs_kernel.plot_correlations(wspace = 0.5, hspace = 1.1)
-plt.savefig('figures/wvs_plot_correlations.jpeg')
-wvs_kernel.plot_mean_convergence(wspace = 0.5, hspace = 1.1)
-plt.savefig('figures/wvs_plot_mean_convergence.jpeg')
-	#* Subset
-
-#wvs_low_k_mar = wvs_low_k_mar.rename(columns = lambda x:re.sub('[^A-Za-z0-9_]+', '', x))
-
-#wvs_low_k_kernel = mf.ImputationKernel(
-#                                   wvs_low_k_mar,
-#                                   datasets=10,
-#                                   save_all_iterations=True,
-#                                   random_state=601)
-#wvs_low_k_kernel.mice(10)
-
-#print('wvs low k kernel complete')
-#wvs_low_k_mice_comp_1 = wvs_low_k_kernel.complete_data(dataset=0, inplace=False)
-#wvs_low_k_mice_comp_2 = wvs_low_k_kernel.complete_data(dataset=1, inplace=False)
-#wvs_low_k_mice_comp_3 = wvs_low_k_kernel.complete_data(dataset=2, inplace=False)
-#wvs_low_k_mice_comp_4 = wvs_low_k_kernel.complete_data(dataset=3, inplace=False)
-#wvs_low_k_mice_comp_5 = wvs_low_k_kernel.complete_data(dataset=4, inplace=False)
-#wvs_low_k_mice_comp_6 = wvs_low_k_kernel.complete_data(dataset=5, inplace=False)
-#wvs_low_k_mice_comp_7 = wvs_low_k_kernel.complete_data(dataset=6, inplace=False)
-#wvs_low_k_mice_comp_8 = wvs_low_k_kernel.complete_data(dataset=7, inplace=False)
-#wvs_low_k_mice_comp_9 = wvs_low_k_kernel.complete_data(dataset=8, inplace=False)
-#wvs_low_k_mice_comp_10 = wvs_low_k_kernel.complete_data(dataset=9, inplace=False)
-
-
-#wvs_low_k_mar_drop = wvs_low_k_mar.dropna(axis = 0, how = 'any', inplace = False)
-#wvs_low_k_mar_drop = wvs_low_k_mar_drop.rename(columns = lambda x:re.sub('[^A-Za-z0-9_]+', '', x))

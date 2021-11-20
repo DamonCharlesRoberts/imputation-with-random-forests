@@ -37,23 +37,3 @@ class wvs_impute:
 			pd.DataFrame.to_csv(self.wvs_data, 
 				path_or_buf = '/home/damoncroberts/Dropbox/current_projects/dcr_rf_imputation/data/wvs_impute_' + str(i) + '.csv')
 wvs_impute()
-
-
-
-#wvs_mice_comp_1 = wvs_kernel.complete_data(dataset=0, inplace=False)
-#pd.DataFrame.to_csv(wvs_mice_comp_1, path_or_buf = '/data/wvs_impute_1.csv')
-#wvs_mice_comp_2 = wvs_kernel.complete_data(dataset=1, inplace=False)
-#pd.DataFrame.to_csv(wvs_mice_comp_2, path_or_buf = '/data/wvs_impute_2.csv')
-#wvs_mice_comp_3 = wvs_kernel.complete_data(dataset=2, inplace=False)
-#pd.DataFrame.to_csv(wvs_mice_comp_3, path_or_buf = '/data/wvs_impute_3.csv')
-#wvs_mice_comp_4 = wvs_kernel.complete_data(dataset=3, inplace=False)
-#pd.DataFrame.to_csv(wvs_mice_comp_4, path_or_buf = '/data/wvs_impute_4.csv')
-#wvs_mice_comp_5 = wvs_kernel.complete_data(dataset=4, inplace=False)
-#pd.DataFrame.to_csv(wvs_mice_comp_5, path_or_buf = '/data/wvs_impute_5.csv')
-#wvs_mice_comp_6 = wvs_kernel.complete_data(dataset=5, inplace=False)
-#pd.DataFrame.to_csv(wvs_mice_comp_6, path_or_buf = '/data/wvs_impute_6.csv')
-#wvs_mice_comp_7 = wvs_kernel.complete_data(dataset=6, inplace=False)
-#pd.DataFrame.to_csv(wvs_mice_comp_7)
-#wvs_mice_comp_8 = wvs_kernel.complete_data(dataset=7, inplace=False)
-#wvs_mice_comp_9 = wvs_kernel.complete_data(dataset=8, inplace=False)
-#wvs_mice_comp_10 = wvs_kernel.complete_data(dataset=9, inplace=False)
