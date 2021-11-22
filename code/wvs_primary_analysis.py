@@ -17,8 +17,8 @@ import os
 	#* Plot Style 
 sns.set(style = 'whitegrid')
 	#* Working directory 
-os.chdir('/home/damoncroberts/Dropbox/current_projects/dcr_rf_imputation/') # Linux
-#os.chdir('/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/') # Mac
+#os.chdir('/home/damoncroberts/Dropbox/current_projects/dcr_rf_imputation/') # Linux
+os.chdir('/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/') # Mac
 	#* Import WVS data
 wvs = pd.read_csv('data/wvs_original.csv', low_memory = False)
 # Clean WVS
