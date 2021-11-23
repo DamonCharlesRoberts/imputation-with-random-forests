@@ -19,5 +19,8 @@ Academic project examining the utility of using Random Forest models for multipl
 # Code
 
 * `produce_na_function.py`: A function for generating MCAR, MAR, and MNAR missigness to data. 
-* `cleaning_simulating.py`: Generating simulated data, executing function to generate MCAR, MAR, and MNAR missingness to simulated data.
-* `wvs_missingness.py`: Using World Values Survey data, executes function to generate MCAR, MAR, and MNAR missingness to the WVS data.
+* `missingness.py`: Generating simulated data, executing function to generate MCAR, MAR, and MNAR missingness to simulated data.
+* `rmse_function.py`: Defines a function that calculates RMSE for `simulation_imputation_and_performance.py` script.
+* `simulation_imputation_and_performance.py`: Imputing missing values using `miceforest` library. Checks performance on imputing simulated data with MAR.
+* `wvs_imputation.py`: Imputing missing values using `miceforest` library in World Values Survey Data.
+* `wvs_performance.py`: Runs regressions on voter turnout using imputed datasets and LWD for the WVS. Computes t-test to compare coefficients between the models. 
