@@ -1,12 +1,12 @@
 <h4 align="center">Replication Code: Connecting Leaves to the Forest</h4>
 <p align="center">
     <a href="https://github.com/DamonCharlesRoberts/imputation-with-random-forests/commits/main">
-    <img src="https://img.shields.io/github/last-commit/DamonCharlesRoberts/imputation-with-random-forests.svg?style=flat-square&logo=github&logoColor=white"
+    <img src="https://img.shields.io/github/last-commit/DamonCharlesRoberts/mputation-with-random-forests.svg?style=flat-square&logo=github&logoColor=white"
          alt="GitHub last commit"></a>
-    <a href="https://github.com/DamonCharlesRoberts/seniority-project/issues">
-    <img src="https://img.shields.io/github/issues-raw/DamonCharlesRoberts/imputation-with-random-forests.svg?style=flat-square&logo=github&logoColor=white"
+    <a href="https://github.com/DamonCharlesRoberts/mputation-with-random-forests/issues">
+    <img src="https://img.shields.io/github/issues-raw/DamonCharlesRoberts/mputation-with-random-forests.svg?style=flat-square&logo=github&logoColor=white"
          alt="GitHub issues"></a>
-    <a href="https://github.com/DamonCharlesRoberts/seniority-project/pulls">
+    <a href="https://github.com/DamonCharlesRoberts/mputation-with-random-forests/pulls">
     <img src="https://img.shields.io/github/issues-pr-raw/DamonCharlesRoberts/imputation-with-random-forests.svg?style=flat-square&logo=github&logoColor=white"
          alt="GitHub pull requests"></a>
 </p>
