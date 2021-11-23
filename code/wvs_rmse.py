@@ -11,15 +11,17 @@ import numpy as np
 import statsmodels.api as sm
 from statistics import median
 from stargazer.stargazer import Stargazer
-import scipy as sp
-from scipy.stats import chi2
+from tabulate import tabulate
+import os
+import re
 	#* Working Directory
-os.chdir('/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/')
+#os.chdir('/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/') # MAC
+os.chdir('/home/damoncroberts/Dropbox/current_projects/dcr_rf_imputation') #LINUX
 	#* Source rmse function file
 exec(open('code/rmse_function.py').read())
 	#* Load Data
 wvs = pd.read_csv('data/wvs_original.csv', low_memory = False)
-wvs = wvs[wvs['A_YEAR'] == 2018].drop(columns = ['version', 'doi', 'A_WAVE', 'A_STUDY', 'B_COUNTRY', 'B_COUNTRY_ALPHA', 'C_COW_NUM', 'C_COW_ALPHA', 'A_YEAR', 'D_INTERVIEW', 'J_INTDATE', 'FW_END', 'FW_START', 'K_TIME_START', 'K_TIME_END', 'K_DURATION', 'Q_MODE', 'N_REGION_ISO', 'N_REGION_WVS', 'N_TOWN', 'O1_LONGITUDE', 'O2_LATITUDE', 'S_INTLANGUAGE', 'LNGE_ISO', 'E_RESPINT', 'F_INTPRIVACY', 'E1_LITERACY', 'W_WEIGHT', 'S018', 'PWGHT', 'S025', 'Partyname', 'Partyabb', 'CPARTY', 'CPARTYABB']).rename(columns = lambda x:re.sub('[^A-Za-z0-9_]+', '', x)).reset_index()
+wvs = wvs[wvs['A_YEAR'] == 2018].drop(columns = ['version', 'doi', 'A_WAVE', 'A_STUDY', 'B_COUNTRY', 'B_COUNTRY_ALPHA', 'C_COW_NUM', 'C_COW_ALPHA', 'A_YEAR', 'D_INTERVIEW', 'J_INTDATE', 'FW_END', 'FW_START', 'K_TIME_START', 'K_TIME_END', 'K_DURATION', 'Q_MODE', 'N_REGION_ISO', 'N_REGION_WVS', 'N_TOWN', 'O1_LONGITUDE', 'O2_LATITUDE', 'S_INTLANGUAGE', 'LNGE_ISO', 'E_RESPINT', 'F_INTPRIVACY', 'E1_LITERACY', 'W_WEIGHT', 'S018', 'PWGHT', 'S025', 'Partyname', 'Partyabb', 'CPARTY', 'CPARTYABB']).rename(columns = lambda x:re.sub('[^A-Za-z0-9_]+', '', x)).reset_index().dropna()
 wvs_imputed_3 = pd.read_csv('data/wvs_impute_3.csv').drop(columns = ['Unnamed: 0'])
 wvs_imputed_0 = pd.read_csv('data/wvs_impute_0.csv').drop(columns = ['Unnamed: 0'])
 wvs_imputed_1 = pd.read_csv('data/wvs_impute_1.csv').drop(columns = ['Unnamed: 0'])
@@ -53,7 +55,8 @@ table3 = Stargazer([wvs_model])
 table1.render_latex()
 table2.render_latex()
 table3.render_latex()
-		#* Malahanobis distance
+
+		#* Two independent sample t-test of coefficients
 
 wvs_coef = wvs_model.params
 wvs_coef = pd.DataFrame(wvs_coef)
@@ -90,20 +93,18 @@ wvs_imputed_3_coef = wvs_imputed_3_coef.transpose()
 wvs_coef_sample = pd.concat([wvs_coef, wvs_imputed_0_coef, wvs_imputed_1_coef, wvs_imputed_2_coef, wvs_imputed_3_coef])
 wvs_coef_sample = wvs_coef_sample.transpose()
 
-def mahalanobis(x=None, data=None, cov=None):
-    """Compute the Mahalanobis Distance between each row of x and the data  
-    x    : vector or matrix of data with, say, p columns.
-    data : ndarray of the distribution from which Mahalanobis distance of each observation of x is to be computed.
-    cov  : covariance matrix (p x p) of the distribution. If None, will be computed from data.
-    """
-    x_minus_mu = x - np.mean(data)
-    if not cov:
-        cov = np.cov(data.values.T)
-    inv_covmat = sp.linalg.inv(cov)
-    left_term = np.dot(x_minus_mu, inv_covmat)
-    mahal = np.dot(left_term, x_minus_mu.T)
-    return mahal.diagonal()
+wvs_coef_sample_x = wvs_coef_sample
+wvs_coef_sample_x['difference'] = wvs_coef_sample_x['coefficientwvs'] - wvs_coef_sample_x['coefficient4']
+wvs_coef_sample_x['beta1se'] = wvs_model.bse
+wvs_coef_sample_x['beta2se'] = wvs_imputed_3_model.bse
+wvs_coef_sample_x['denom'] = np.sqrt((wvs_coef_sample_x['beta1se'] **2) + (wvs_coef_sample_x['beta2se'] **2))
+wvs_coef_sample_x['tstat'] = wvs_coef_sample_x['difference']/wvs_coef_sample_x['denom']
 
-wvs_coef_sample_x = wvs_coef_sample[['coefficientwvs', 'coefficient1', 'coefficient2', 'coefficient3', 'coefficient4']]
-wvs_coef_sample_x['mahala'] = mahalanobis(x = wvs_coef_sample_x, data = wvs_coef_sample[['coefficientwvs', 'coefficient1', 'coefficient2', 'coefficient3', 'coefficient4']])
-wvs_coef_sample_x['p_value'] = 1 - chi2.cdf(wvs_coef_sample_x['mahala'], 2)
+header = ['Variable', 'T-Statistic']
+tstat = [('Constant', wvs_coef_sample_x.iloc[0]['tstat']), 
+('Income', wvs_coef_sample_x.iloc[1]['tstat']), 
+('Clientelism', wvs_coef_sample_x.iloc[2]['tstat']),
+('Membership', wvs_coef_sample_x.iloc[3]['tstat']),
+('Public Officials Corrupt', wvs_coef_sample_x.iloc[4]['tstat']),
+('Fair Election', wvs_coef_sample_x.iloc[5]['tstat'])]
+print(tabulate(tstat, header, tablefmt = 'latex', floatfmt = '.3f'))
