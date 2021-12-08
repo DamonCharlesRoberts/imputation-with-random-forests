@@ -60,7 +60,7 @@ def coefplot(results):
     # Can increase capsize to add whiskers
     coef_df.plot(x='variables', y='coef', kind='bar',
                  ax=ax, color='none', fontsize=22, 
-                 ecolor='black',capsize=0,
+                 ecolor='black',capsize=1,
                  yerr='errors', legend=False)
     
     # Set title & labels
@@ -70,7 +70,7 @@ def coefplot(results):
     
     # Coefficients
     ax.scatter(x=pd.np.arange(coef_df.shape[0]), 
-               marker='o', s=80, 
+               marker='o', s=30, 
                y=coef_df['coef'], color='black')
     
     # Line to define zero on the y-axis

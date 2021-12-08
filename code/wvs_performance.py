@@ -17,8 +17,8 @@ import matplotlib.pyplot as plt
 import os
 import re
 	#* Working Directory
-os.chdir('/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/') # MAC
-#os.chdir('/home/damoncroberts/Dropbox/current_projects/dcr_rf_imputation') #LINUX
+#os.chdir('/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/') # MAC
+os.chdir('/home/damoncroberts/Dropbox/current_projects/dcr_rf_imputation') #LINUX
 	#* Source rmse function file
 exec(open('code/rmse_function.py').read())
 	#* Source coefplot function file
@@ -56,6 +56,9 @@ wvs_model = reg(wvs)
 table1 = Stargazer([wvs_imputed_0_model, wvs_imputed_1_model])
 table2 = Stargazer([wvs_imputed_2_model, wvs_imputed_3_model])
 table3 = Stargazer([wvs_model])
+table1.show_confidence_intervals(True)
+table2.show_confidence_intervals(True)
+table3.show_confidence_intervals(True)
 print(table1.render_latex())
 print(table2.render_latex())
 print(table3.render_latex())
