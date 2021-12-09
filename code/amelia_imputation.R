@@ -23,4 +23,7 @@ sim_ten_imp = amelia(sim_ten, m = 4)
 sim_ten_imp_one = sim_ten_imp[4]
 
 	#* WVS
-wvs_imp = amelia(wvs, m = 4)
+wvs_imp_parallel1 = amelia(wvs, m = 1, p2s=1)
+wvs_imp_parallel2 = amelia(wvs, m = 2, p2s=1)
+wvs_imp_parallel3 = amelia(wvs, m = 3, p2s=1)
+wvs_imp_parallel4 = amelia(wvs, m = 4, p2s=1)
