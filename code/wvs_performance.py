@@ -17,8 +17,8 @@ import matplotlib.pyplot as plt
 import os
 import re
 	#* Working Directory
-#os.chdir('/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/') # MAC
-os.chdir('/home/damoncroberts/Dropbox/current_projects/dcr_rf_imputation') #LINUX
+os.chdir('/Users/damonroberts/Dropbox/current_projects/dcr_rf_imputation/') # MAC
+#os.chdir('/home/damoncroberts/Dropbox/current_projects/dcr_rf_imputation') #LINUX
 	#* Source rmse function file
 exec(open('code/rmse_function.py').read())
 	#* Source coefplot function file
@@ -57,8 +57,17 @@ table1 = Stargazer([wvs_imputed_0_model, wvs_imputed_1_model])
 table2 = Stargazer([wvs_imputed_2_model, wvs_imputed_3_model])
 table3 = Stargazer([wvs_model])
 table1.show_confidence_intervals(True)
+table1.custom_columns(['Imputed Model 1', 'Imputed Model 2'],[1,1])
+table1.show_model_numbers(False)
+table1.add_custom_notes(['Data Source: World Values Survey 2018 Panel', 'OLS Coefficients.', '95\\% Confidence Intervals in parentheses.'])
 table2.show_confidence_intervals(True)
+table2.custom_columns(['Imputed Model 3', 'Imputed Model 4'], [1,1])
+table2.show_model_numbers(False)
+table2.add_custom_notes(['Data Source: World Values Survey 2018 Panel', 'OLS Coefficients.', '95\\% Confidence Intervals in parentheses.'])
 table3.show_confidence_intervals(True)
+table3.custom_columns('LWD Model')
+table3.show_model_numbers(False)
+table3.add_custom_notes(['Data Source: World Values Survey 2018 Panel', 'OLS Coefficients.', '95\\% Confidence Intervals in parentheses.'])
 print(table1.render_latex())
 print(table2.render_latex())
 print(table3.render_latex())
