@@ -7,23 +7,31 @@
 	#* Load packages
 library(Amelia)
 library(dplyr)
+library(haven)
 	#* Load Data
 sim_three = read.csv('data/sim_three_MAR.csv')
 sim_ten = read.csv('data/sim_ten_MAR.csv')
-wvs = read.csv('data/wvs_original.csv') %>%
-	filter(A_YEAR == 2018) %>%
-	select(-c(A_YEAR, Q82_ECO, Q82_NAFTA, version, doi, B_COUNTRY_ALPHA, C_COW_ALPHA, LNGE_ISO, Partyname, Partyabb, CPARTY, CPARTYABB, A_WAVE, A_STUDY))
+anes = read.csv('data/anes_2020_clean.csv')
 
+# Set seed
+set.seed(1234)
 # Perform imputation with AMELIA
 	#* Simulated
-sim_three_imp = amelia(sim_three, m = 4)
-sim_three_imp_one = sim_three_imp[4]
+sim_three_imp = amelia(sim_three, m = 5)
 
-sim_ten_imp = amelia(sim_ten, m = 4)
-sim_ten_imp_one = sim_ten_imp[4]
 
-	#* WVS
-wvs_imp_parallel1 = amelia(wvs, m = 1, p2s=1)
-wvs_imp_parallel2 = amelia(wvs, m = 2, p2s=1)
-wvs_imp_parallel3 = amelia(wvs, m = 3, p2s=1)
-wvs_imp_parallel4 = amelia(wvs, m = 4, p2s=1)
+sim_ten_imp = amelia(sim_ten, m = 5)
+
+
+	#* ANES
+anes_imp = amelia(anes, m = 5, p2s = 0, parallel = 'multicore')
+
+
+# Save datasets ----
+saveRDS(sim_three_imp, 'data/amelia_sim_3.RDS')
+write.csv(sim_three_imp$imputations[[5]], 'data/amelia_sim_three_partial.csv')
+saveRDS(sim_ten_imp, 'data/amelia_sim_10.RDS')
+write.csv(sim_ten_imp$imputations[[5]], 'data/amelia_sim_ten_partial.csv')
+saveRDS(anes_imp, 'data/amelia_anes.RDS')
+write.csv(anes_imp$imputations[[5]], 'data/amelia_anes_partial.csv')
+save.image('data/amelia_image.RData')

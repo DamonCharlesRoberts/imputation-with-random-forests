@@ -162,6 +162,7 @@ fig.subplots_adjust(bottom = 0.35)
 plt.savefig('figures/sim_10_plot_imputed_dists.jpeg')
 
 sim_10_kernel.plot_correlations(wspace = 0.5, hspace = 1.1)
+plt.title('ColumnA')
 plt.savefig('figures/sim_10_plot_correlations.jpeg')
 sim_10_kernel.plot_mean_convergence(wspace = 0.5, hspace = 1.1)
 plt.savefig('figures/sim_10_plot_mean_convergence.jpeg')
@@ -192,9 +193,15 @@ print('sim 10 complete')
 
 #print('performance complete')
 
+# Load imputed data from AMELIA
+sim_3_amelia_comp = pd.read_csv('data/amelia_sim_three_partial.csv')
+sim_10_amelia_comp = pd.read_csv('data/amelia_sim_ten_partial.csv')
+
+# Calculate RMSE
 sim_3_rmse = rmse(sim_3_comp, sim_3_mice_comp_10)
 sim_10_rmse = rmse(sim_10_comp, sim_10_mice_comp_10)
-
+sim_3_amelia_rmse = rmse(sim_3_comp, sim_3_amelia_comp)
+sim_10_amelia_rmse = rmse(sim_10_comp, sim_10_amelia_comp)
 headers = ['Data Set', 'RMSE']
-rmse = [('3 - Variable', sim_3_rmse), ('10 - Variable', sim_10_rmse)]
+rmse = [('3 - Variable, MICE', sim_3_rmse), ('3 - Variable, Amelia II', sim_3_amelia_rmse), ('10 - Variable, MICE', sim_10_rmse), ('10 - Variable, AMELIA II')]
 print(tabulate(rmse, headers, tablefmt = 'latex', floatfmt = '.3f'))
