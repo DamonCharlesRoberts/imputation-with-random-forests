@@ -203,5 +203,5 @@ sim_10_rmse = rmse(sim_10_comp, sim_10_mice_comp_10)
 sim_3_amelia_rmse = rmse(sim_3_comp, sim_3_amelia_comp)
 sim_10_amelia_rmse = rmse(sim_10_comp, sim_10_amelia_comp)
 headers = ['Data Set', 'RMSE']
-rmse = [('3 - Variable, MICE', sim_3_rmse), ('3 - Variable, Amelia II', sim_3_amelia_rmse), ('10 - Variable, MICE', sim_10_rmse), ('10 - Variable, AMELIA II')]
+rmse = [('3 - Variable, MICE', sim_3_rmse), ('3 - Variable, Amelia II', sim_3_amelia_rmse), ('10 - Variable, MICE', sim_10_rmse), ('10 - Variable, AMELIA II', sim_10_amelia_rmse)]
 print(tabulate(rmse, headers, tablefmt = 'latex', floatfmt = '.3f'))

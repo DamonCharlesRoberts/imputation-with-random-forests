@@ -130,7 +130,7 @@ tstat = [('Constant', anes_coef_sample_x.iloc[0]['tstat']),
 ('Age', anes_coef_sample_x.iloc[3]['tstat']),
 ('Occupational Status', anes_coef_sample_x.iloc[4]['tstat']),
 ('White', anes_coef_sample_x.iloc[5]['tstat']),
-('Age', anes_coef_sample_x.iloc[6]['tstat'])]
+('Female', anes_coef_sample_x.iloc[6]['tstat'])]
 print(tabulate(tstat, header, tablefmt = 'latex', floatfmt = '.3f'))
 
 		#** Comparison between ANES LWD and AMELIA II

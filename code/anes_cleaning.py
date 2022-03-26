@@ -11,7 +11,7 @@ import pandas as pd
 import numpy as np
 
     #* Load 2020 ANES dataset
-anes = pd.read_csv('data/anes_timeseries_2020.csv', low_memory = False)
+anesO = pd.read_csv('data/anes_timeseries_2020.csv', low_memory = False)
 
 
 # Grab a bunch of columns that have some non-administrative value to them
