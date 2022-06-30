@@ -18,9 +18,10 @@ Academic project examining the utility of using Random Forest models for multipl
 
 # Code
 
-* `produce_na_function.py`: A function for generating MCAR, MAR, and MNAR missigness to data. 
-* `missingness.py`: Generating simulated data, executing function to generate MCAR, MAR, and MNAR missingness to simulated data.
-* `rmse_function.py`: Defines a function that calculates RMSE for `simulation_imputation_and_performance.py` script.
-* `simulation_imputation_and_performance.py`: Imputing missing values using `miceforest` library. Checks performance on imputing simulated data with MAR.
-* `wvs_imputation.py`: Imputing missing values using `miceforest` library in World Values Survey Data.
-* `wvs_performance.py`: Runs regressions on voter turnout using imputed datasets and LWD for the WVS. Computes t-test to compare coefficients between the models. 
+* anes_cleaning.py: Python script to clean the 2020 ANES for the Application section of the paper
+* anes_imputation.R: R Script that performs the MI and RF-MICE imputation procedures on the 2020 ANES data.
+* anes_models.R: R Script that performs the main models and t-tests using LWD, MI, and RF-MICE procedures on 2020 ANES data.
+* introduce_mar.R: R Script that performs the amputation for the simulated data.
+* simulated_imputation.R: R Script that performs the imputation procedures on the amputed simulated data.
+* simulated_models.R: R Script that performs the main models and data exploration on the simulated data.
+* simulation_data.R: R Script that generates the simulated data.
