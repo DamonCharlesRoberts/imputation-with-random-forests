@@ -83,10 +83,18 @@ def impute(data_frame, datasets, save_all_iterations=True, random_state = 902010
 
     Parameters
     -----
-
+    data_frame: pd.DataFrame
+                A pandas DataFrame object with missingness to impute
+    datasets: int
+                An integer for the number of datasets to generate
+    save_all_iterations: bool
+                A boolean for whether you should store each dataframe or write over original
+    random_state: int
+                An integer for the random state 
     Returns
     -----
-    A list of imputed pd.DataFrame objects
+    imputed: A list of imputed pd.DataFrame objects
+    total_time: A int of total time it took to execute
     """
     amputed = data_frame
     kernel = mf.ImputationKernel(
